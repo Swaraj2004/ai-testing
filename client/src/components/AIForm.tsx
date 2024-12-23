@@ -47,6 +47,23 @@ const AIForm: React.FC<AIFormProps> = ({
     await onSubmit(selectedAI, selectedModel, selectedMethod, pdfFile);
   };
 
+  const getSelectedModel = () => {
+    return models
+      .find((ai) => ai.id === selectedAI)
+      ?.models.find((model) => model.id === selectedModel);
+  };
+
+  const handleAIChange = (value: string) => {
+    setSelectedAI(value);
+    setSelectedModel(null);
+    setSelectedMethod(null);
+  };
+
+  const handleModelChange = (value: string) => {
+    setSelectedModel(value);
+    setSelectedMethod(null);
+  };
+
   return (
     <Card>
       {loadingModels && <p className="p-6">Loading AIs...</p>}
@@ -57,7 +74,7 @@ const AIForm: React.FC<AIFormProps> = ({
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <Label>AI Provider</Label>
-                <Select onValueChange={(value) => setSelectedAI(value)}>
+                <Select onValueChange={handleAIChange}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select an AI" />
                   </SelectTrigger>
@@ -76,7 +93,7 @@ const AIForm: React.FC<AIFormProps> = ({
                 <Label>Model</Label>
                 <Select
                   disabled={!selectedAI}
-                  onValueChange={(value) => setSelectedModel(value)}
+                  onValueChange={handleModelChange}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select a model" />
@@ -97,7 +114,7 @@ const AIForm: React.FC<AIFormProps> = ({
               <div className="flex flex-col gap-2">
                 <Label>Method</Label>
                 <Select
-                  disabled={!selectedAI}
+                  disabled={!selectedModel}
                   onValueChange={(value) => setSelectedMethod(value)}
                 >
                   <SelectTrigger>
@@ -105,13 +122,11 @@ const AIForm: React.FC<AIFormProps> = ({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      {models
-                        .find((ai) => ai.id === selectedAI)
-                        ?.supported_methods.map((method) => (
-                          <SelectItem key={method.id} value={method.id}>
-                            {method.name}
-                          </SelectItem>
-                        ))}
+                      {getSelectedModel()?.supported_methods.map((method) => (
+                        <SelectItem key={method.id} value={method.id}>
+                          {method.name}
+                        </SelectItem>
+                      ))}
                     </SelectGroup>
                   </SelectContent>
                 </Select>

@@ -32,6 +32,9 @@ function App() {
     try {
       setErrorResponse(null);
       setLoadingResponse(true);
+      setInputTokens(null);
+      setOutputTokens(null);
+      setFetchDuration(null);
       const res = await fetch("http://127.0.0.1:5000/api/get-table", {
         method: "POST",
         body: formData,
