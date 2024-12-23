@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from openai import OpenAI
+from openai.types.beta.threads.message_create_params import (
+    Attachment, AttachmentToolFileSearch)
 
 load_dotenv()
 
@@ -81,25 +83,75 @@ Ensure the output is error-free and strictly adheres to the PSV format.
 # Function to process PDF with OpenAI
 def response_with_openai(pdf_path, model_name, method):
     if method == "pdfplumber":
-        text = extract_text_pdfplumber(pdf_path)
-        custom_prompt = prompt + f"""Report: {text}"""
-        response = openai_client.chat.completions.create(
-            model=model_name,
-            messages=[
-                {"role": "user", "content": custom_prompt}
-            ]
-        )
-        return response
+        try:
+            text = extract_text_pdfplumber(pdf_path)
+            custom_prompt = prompt + f"""Report: {text}"""
+            response = openai_client.chat.completions.create(
+                model=model_name,
+                messages=[
+                    {"role": "user", "content": custom_prompt}
+                ]
+            )
+            return response
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
     elif method == "pdfplumber_spacy":
-        text = extract_text_with_spacy(pdf_path)
-        custom_prompt = prompt + f"""Report: {text}"""
-        response = openai_client.chat.completions.create(
-            model=model_name,
-            messages=[
-                {"role": "user", "content": custom_prompt}
-            ]
-        )
-        return response
+        try:
+            text = extract_text_with_spacy(pdf_path)
+            custom_prompt = prompt + f"""Report: {text}"""
+            response = openai_client.chat.completions.create(
+                model=model_name,
+                messages=[
+                    {"role": "user", "content": custom_prompt}
+                ]
+            )
+            return response
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
+    elif method == "direct_pdf":
+        try:
+            file = open(pdf_path, "rb")
+            response = openai_client.beta.assistants.create(
+                model=model_name,
+                description="An assistant to extract the contents of PDF files.",
+                tools=[{"type": "file_search"}],
+                name="PDF assistant",
+            )
+            # Create thread
+            thread = openai_client.beta.threads.create()
+            # Upload the file
+            uploaded_file = openai_client.files.create(file=file, purpose="assistants")
+            # Create assistant
+            openai_client.beta.threads.messages.create(
+                thread_id=thread.id,
+                role="user",
+                attachments=[
+                    Attachment(
+                        file_id=uploaded_file.id, tools=[AttachmentToolFileSearch(type="file_search")]
+                    )
+                ],
+                content=prompt,
+            )
+            # Run thread
+            run = openai_client.beta.threads.runs.create_and_poll(
+                thread_id=thread.id, assistant_id=response.id, timeout=1000
+            )
+            if run.status != "completed":
+                raise Exception("Run failed:", run.status)
+            messages_cursor = openai_client.beta.threads.messages.list(thread_id=thread.id)
+            messages = [message for message in messages_cursor]
+            # Output text
+            res_txt = messages[0].content[0].text.value
+            json_output = psv_to_json(res_txt)
+            return {
+                "result": json_output,
+                "input_tokens": str(run.usage.prompt_tokens),
+                "output_tokens": str(run.usage.completion_tokens)
+            }
+        except Exception as e:
+            return {"error": str(e)}
 
 # Function to process PDF with Google Generative AI
 def response_with_gemini(pdf_path, model_name, method):
@@ -112,6 +164,7 @@ def response_with_gemini(pdf_path, model_name, method):
             return response
         except Exception as e:
             return jsonify({"error": str(e)}), 500
+
     elif method == "pdfplumber_spacy":
         try:
             text = extract_text_with_spacy(pdf_path)
@@ -121,6 +174,7 @@ def response_with_gemini(pdf_path, model_name, method):
             return response
         except Exception as e:
             return jsonify({"error": str(e)}), 500
+
     elif method == "direct_pdf":
         try:
             with open(pdf_path, "rb") as doc_file:
@@ -152,6 +206,7 @@ def response_with_anthropic(pdf_path, model_name, method):
             return response
         except Exception as e:
             return jsonify({"error": str(e)}), 500
+
     elif method == "pdfplumber_spacy":
         try:
             text = extract_text_with_spacy(pdf_path)
@@ -200,13 +255,16 @@ def process_pdf():
         pdf_file.save(temp_pdf_path)
 
         if ai_name == "openai":
-            api_response = response_with_openai(temp_pdf_path, model_name, method)
-            json_output = psv_to_json(api_response.choices[0].message.content)
-            response = {
-                "result": json_output,
-                "input_tokens": str(api_response.usage.prompt_tokens),
-                "output_tokens": str(api_response.usage.completion_tokens),
-            }
+            if method in ["pdfplumber", "pdfplumber_spacy"]:
+                api_response = response_with_openai(temp_pdf_path, model_name, method)
+                json_output = psv_to_json(api_response.choices[0].message.content)
+                response = {
+                    "result": json_output,
+                    "input_tokens": str(api_response.usage.prompt_tokens),
+                    "output_tokens": str(api_response.usage.completion_tokens),
+                }
+            elif method == "direct_pdf":
+                response = response_with_openai(temp_pdf_path, model_name, method)
         elif ai_name == "gemini":
             api_response = response_with_gemini(temp_pdf_path, model_name, method)
             json_output = psv_to_json(api_response.text)
