@@ -35,7 +35,7 @@ function App() {
       setInputTokens(null);
       setOutputTokens(null);
       setFetchDuration(null);
-      const res = await fetch("http://127.0.0.1:5000/api/get-table", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/get-table`, {
         method: "POST",
         body: formData,
       });
