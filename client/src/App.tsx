@@ -60,7 +60,7 @@ function App() {
 
   return (
     <>
-      <div className="hidden h-screen p-5 lg:grid grid-cols-3 gap-5">
+      <div className="hidden h-screen grid-cols-3 gap-5 p-5 lg:grid">
         <div className="col-span-1">
           <AIForm
             models={models}
@@ -79,13 +79,13 @@ function App() {
           <Card className="h-[calc(100vh-40px)] overflow-auto">
             <CardContent className="h-full pt-6">
               {loadingResponse ? (
-                <p className="text-center pt-20">Loading...</p>
+                <p className="pt-20 text-center">Loading...</p>
               ) : errorResponse ? (
-                <p>{errorResponse}</p>
+                <p className="pt-20 text-center">{errorResponse}</p>
               ) : result ? (
                 <ResultsTable data={result} />
               ) : (
-                <p className="text-center pt-20">
+                <p className="pt-20 text-center">
                   Upload a PDF to see the results.
                 </p>
               )}
@@ -93,7 +93,7 @@ function App() {
           </Card>
         </div>
       </div>
-      <div className="lg:hidden pt-20 px-5 text-center">
+      <div className="px-5 pt-20 text-center lg:hidden">
         Mobile view is not supported. Please use a desktop browser.
       </div>
     </>

@@ -13,7 +13,7 @@ interface ResultsTableProps {
 
 const ResultsTable: React.FC<ResultsTableProps> = ({ data }) => {
   return (
-    <Table>
+    <Table className="mb-6">
       <TableHeader>
         <TableRow>
           <TableCell>Sr No.</TableCell>
