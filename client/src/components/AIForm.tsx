@@ -55,13 +55,10 @@ const AIForm: React.FC<AIFormProps> = ({
 
   const handleAIChange = (value: string) => {
     setSelectedAI(value);
-    setSelectedModel(null);
-    setSelectedMethod(null);
   };
 
   const handleModelChange = (value: string) => {
     setSelectedModel(value);
-    setSelectedMethod(null);
   };
 
   return (
@@ -81,7 +78,7 @@ const AIForm: React.FC<AIFormProps> = ({
                   <SelectContent>
                     <SelectGroup>
                       {models.map((ai) => (
-                        <SelectItem key={ai.id} value={ai.id}>
+                        <SelectItem key={ai.key} value={ai.id}>
                           {ai.name}
                         </SelectItem>
                       ))}
@@ -103,7 +100,7 @@ const AIForm: React.FC<AIFormProps> = ({
                       {models
                         .find((ai) => ai.id === selectedAI)
                         ?.models.map((model) => (
-                          <SelectItem key={model.id} value={model.id}>
+                          <SelectItem key={model.key} value={model.id}>
                             {model.name}
                           </SelectItem>
                         ))}
@@ -123,7 +120,7 @@ const AIForm: React.FC<AIFormProps> = ({
                   <SelectContent>
                     <SelectGroup>
                       {getSelectedModel()?.supported_methods.map((method) => (
-                        <SelectItem key={method.id} value={method.id}>
+                        <SelectItem key={method.key} value={method.id}>
                           {method.name}
                         </SelectItem>
                       ))}

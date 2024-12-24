@@ -1,95 +1,199 @@
 [
   {
+    "key": "f7c0ab0a-b2dd-4762-98f9-d00abd9c1abe",
     "id": "gemini",
     "name": "Google Gemini",
     "models": [
       {
+        "key": "8b7e3f4e-7308-4540-b233-0fbd304f45fc",
         "id": "gemini-1.5-flash",
         "name": "Gemini 1.5 Flash",
         "supported_methods": [
-          { "id": "direct_pdf", "name": "Direct PDF" },
-          { "id": "pdfplumber", "name": "PDFPlumber" },
-          { "id": "pdfplumber_spacy", "name": "PDFPlumber + SpaCy" }
+          {
+            "key": "2fcaa7b6-ae9a-4b3d-82a2-75ed808dc8cd",
+            "id": "direct_pdf",
+            "name": "Direct PDF"
+          },
+          {
+            "key": "78d210a2-0f09-42fd-8a71-1d50c5a5b1a3",
+            "id": "pdfplumber",
+            "name": "PDFPlumber"
+          },
+          {
+            "key": "b7019701-7a12-4edc-b1fe-50b523e0ac1b",
+            "id": "pdfplumber_spacy",
+            "name": "PDFPlumber + SpaCy"
+          }
         ]
       },
       {
+        "key": "87418012-986f-4283-98d4-79780e9d9a0b",
         "id": "gemini-1.5-pro",
         "name": "Gemini 1.5 Pro",
         "supported_methods": [
-          { "id": "direct_pdf", "name": "Direct PDF" },
-          { "id": "pdfplumber", "name": "PDFPlumber" },
-          { "id": "pdfplumber_spacy", "name": "PDFPlumber + SpaCy" }
+          {
+            "key": "cf420b25-6fc4-44eb-91be-6fe09454b897",
+            "id": "direct_pdf",
+            "name": "Direct PDF"
+          },
+          {
+            "key": "6f10666b-e499-4824-a5c9-4b38bb68c922",
+            "id": "pdfplumber",
+            "name": "PDFPlumber"
+          },
+          {
+            "key": "2ffcd107-6a1c-4583-8246-66fb40086c90",
+            "id": "pdfplumber_spacy",
+            "name": "PDFPlumber + SpaCy"
+          }
         ]
       },
       {
+        "key": "fef384e2-a6c4-4212-99e4-a783d30c3eb7",
         "id": "gemini-2.0-flash-exp",
         "name": "Gemini 2.0 Flash Exp",
         "supported_methods": [
-          { "id": "direct_pdf", "name": "Direct PDF" },
-          { "id": "pdfplumber", "name": "PDFPlumber" },
-          { "id": "pdfplumber_spacy", "name": "PDFPlumber + SpaCy" }
+          {
+            "key": "fde997e7-66b8-476d-89b9-76f31bdbcda0",
+            "id": "direct_pdf",
+            "name": "Direct PDF"
+          },
+          {
+            "key": "4c66ebe4-0617-4a36-809c-19ad51c5586f",
+            "id": "pdfplumber",
+            "name": "PDFPlumber"
+          },
+          {
+            "key": "6602ba5e-95d5-4604-a6a9-590a2cbf1700",
+            "id": "pdfplumber_spacy",
+            "name": "PDFPlumber + SpaCy"
+          }
         ]
       }
     ]
   },
   {
+    "key": "c297d4a4-80a1-4f32-be40-1d5150ca84a5",
     "id": "openai",
     "name": "OpenAI GPT",
     "models": [
       {
+        "key": "0c6efaf8-0f62-42dd-970d-7d7bd766e7c9",
         "id": "gpt-4o",
         "name": "GPT-4o",
         "supported_methods": [
-          { "id": "direct_pdf", "name": "Direct PDF" },
-          { "id": "pdfplumber", "name": "PDFPlumber" },
-          { "id": "pdfplumber_spacy", "name": "PDFPlumber + SpaCy" }
+          {
+            "key": "afd62cec-9b27-43d6-b9d4-52fa55e78442",
+            "id": "direct_pdf",
+            "name": "Direct PDF"
+          },
+          {
+            "key": "5e64a607-956c-48db-a4ac-ae12b4512b47",
+            "id": "pdfplumber",
+            "name": "PDFPlumber"
+          },
+          {
+            "key": "57fcb39a-eba4-49f3-8aed-d2733bfe0f57",
+            "id": "pdfplumber_spacy",
+            "name": "PDFPlumber + SpaCy"
+          }
         ]
       },
       {
+        "key": "983640b5-b21c-4740-b6de-cd3ca0b8adf4",
         "id": "chatgpt-4o-latest",
         "name": "GPT-4o Latest",
         "supported_methods": [
-          { "id": "pdfplumber", "name": "PDFPlumber" },
-          { "id": "pdfplumber_spacy", "name": "PDFPlumber + SpaCy" }
+          {
+            "key": "fa25e608-df1a-4cad-aeb3-f40e5e601394",
+            "id": "pdfplumber",
+            "name": "PDFPlumber"
+          },
+          {
+            "key": "d58cfcda-7fa3-4315-bab9-4e3798424c34",
+            "id": "pdfplumber_spacy",
+            "name": "PDFPlumber + SpaCy"
+          }
         ]
       },
       {
+        "key": "a147c075-0b35-41e7-aec5-412d60d86515",
         "id": "gpt-4o-mini",
         "name": "GPT-4o Mini",
         "supported_methods": [
-          { "id": "direct_pdf", "name": "Direct PDF" },
-          { "id": "pdfplumber", "name": "PDFPlumber" },
-          { "id": "pdfplumber_spacy", "name": "PDFPlumber + SpaCy" }
+          {
+            "key": "4b7c3465-7abf-42ba-a8f6-76cf1e2461bd",
+            "id": "direct_pdf",
+            "name": "Direct PDF"
+          },
+          {
+            "key": "5bce0798-8633-4085-815b-2b7ae55fb3af",
+            "id": "pdfplumber",
+            "name": "PDFPlumber"
+          },
+          {
+            "key": "37e52913-00d0-491f-8275-9bbf9d3ca7e5",
+            "id": "pdfplumber_spacy",
+            "name": "PDFPlumber + SpaCy"
+          }
         ]
       }
     ]
   },
   {
+    "key": "e4e3cc5a-70ec-49c0-8975-202b2f25410e",
     "id": "claude",
     "name": "Anthropic Claude",
     "models": [
       {
+        "key": "9771a092-03c6-486d-949e-8c2744d31685",
         "id": "claude-3-5-sonnet-20241022",
         "name": "Claude 3.5 Sonnet",
         "supported_methods": [
-          { "id": "pdfplumber", "name": "PDFPlumber" },
-          { "id": "pdfplumber_spacy", "name": "PDFPlumber + SpaCy" }
+          {
+            "key": "1bb58e36-c025-41c7-8cce-3aa5fb170f81",
+            "id": "pdfplumber",
+            "name": "PDFPlumber"
+          },
+          {
+            "key": "f2541ad9-1903-456b-9bad-73bbc03dd0e5",
+            "id": "pdfplumber_spacy",
+            "name": "PDFPlumber + SpaCy"
+          }
         ]
       },
       {
+        "key": "0e4f7dde-213d-4ef0-8f93-a553e99d49cb",
         "id": "claude-3-opus-20240229",
         "name": "Claude 3 Opus",
         "supported_methods": [
-          { "id": "pdfplumber", "name": "PDFPlumber" },
-          { "id": "pdfplumber_spacy", "name": "PDFPlumber + SpaCy" }
+          {
+            "key": "e28ab49d-f81f-4904-ba38-60fbed505aeb",
+            "id": "pdfplumber",
+            "name": "PDFPlumber"
+          },
+          {
+            "key": "a32be185-a1bd-4ab0-aff4-95aa27e985c7",
+            "id": "pdfplumber_spacy",
+            "name": "PDFPlumber + SpaCy"
+          }
         ]
       },
       {
+        "key": "37ceeb91-d598-49eb-baf8-a394caa95a5b",
         "id": "claude-3-5-haiku-20241022",
         "name": "Claude 3.5 Haiku",
         "supported_methods": [
-          { "id": "pdfplumber", "name": "PDFPlumber" },
-          { "id": "pdfplumber_spacy", "name": "PDFPlumber + SpaCy" }
+          {
+            "key": "1e58bb19-0eac-45dd-8b4f-232c2176110d",
+            "id": "pdfplumber",
+            "name": "PDFPlumber"
+          },
+          {
+            "key": "2ef3dd15-ca07-46d6-b993-627db2abe38b",
+            "id": "pdfplumber_spacy",
+            "name": "PDFPlumber + SpaCy"
+          }
         ]
       }
     ]

@@ -64,7 +64,7 @@ def psv_to_json(psv_data):
     json_array = []
     for line in data_lines:
         fields = [field.strip() for field in line.split("|")]
-        json_object = {header[i]: fields[i] for i in range(len(header))}
+        json_object = {key.strip(): fields[i] for i, key in enumerate(header)}
         json_array.append(json_object)
     
     return json.dumps(json_array, indent=4)
