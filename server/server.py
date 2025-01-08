@@ -16,6 +16,7 @@ from openai.types.beta.threads.message_create_params import (
 load_dotenv()
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 anthropic_client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
