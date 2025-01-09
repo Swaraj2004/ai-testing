@@ -28,25 +28,22 @@ nlp = spacy.load("en_core_web_sm")
 
 # Function to preprocess text using spaCy
 def preprocess_text_remove_repetitions(text):
-    doc = nlp(text)
-    unique_sentences = []
+    sentences = []
     seen = set()
-
-    for sent in doc.sents:
-        normalized_sentence = sent.text.strip()
-        if normalized_sentence not in seen:
+    for sent in text.split("\n"):  # Split into smaller chunks
+        normalized_sentence = sent.strip()
+        if normalized_sentence and normalized_sentence not in seen:
             seen.add(normalized_sentence)
-            unique_sentences.append(normalized_sentence)
-
-    return " ".join(unique_sentences)
+            sentences.append(normalized_sentence)
+    return "\n".join(sentences)
 
 # Function to extract text from a PDF using pdfplumber
 def extract_text_pdfplumber(pdf_path):
+    text_lines = []
     with pdfplumber.open(pdf_path) as pdf:
-        text = ""
         for page in pdf.pages:
-            text += page.extract_text() + "\n"
-    return text.strip()
+            text_lines.append(page.extract_text())
+    return "\n".join(filter(None, text_lines))
 
 # Function to process PDF with pdfplumber + spaCy
 def extract_text_with_spacy(pdf_path):
